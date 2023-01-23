@@ -26,14 +26,15 @@ router.post('/save/Mentor', cors(), urlencodedParser, function (req, res) {
     const Subjects = req.body.Subjectsreq;
     const Recommend = req.body.Recommendreq;
     const Progress = req.body.Progressreq;
+    const Avalable = req.body.Avalablereq;
     const Value = req.body.Valuereq;
     const Time = req.body.Timereq;
     const Approve = req.body.Approvereq;
     const Datetime = req.body.Datetimereq;
 
 
-    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress ,  Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-    [User , Name , Birth , Highschool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress , Time, Value , Approve , Datetime ], function (err, rows, fields) {
+    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress ,  Avalable , Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+    [User , Name , Birth , Highschool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress , Avalable , Time , Value , Approve , Datetime ], function (err, rows, fields) {
         if (err) {
             console.log(err);
         } else {
