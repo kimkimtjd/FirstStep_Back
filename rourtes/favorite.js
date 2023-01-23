@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 // db를 사용
 var db = require('../config/db')
 
-//  멘토링 정보저장.
+//  멘토링 정보저장
 router.post('/save/Favorite', cors(), urlencodedParser, function (req, res) {
     const User = req.body.UserReq;
     const First = req.body.FirstReq;
