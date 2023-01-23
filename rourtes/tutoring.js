@@ -34,7 +34,7 @@ router.post('/save/Tutor', cors(), urlencodedParser, function (req, res) {
     const Datetime = req.body.Datetimereq;
 
 
-    db.mysql.query("INSERT INTO Tutoring (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Category2 , Recommend , Progress , Avalable , Time  , Value ,  Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+    db.mysql.query("INSERT INTO Tutoring (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Category2 , Recommend , Progress , Avalable , Time  , Value ,  Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
     [User , Name , Birth , Highschool , University , Category , Grade , Advantage , ProgramName , Subjects , CategorySecond , Recommend , Progress , Avalable , Time, Value , Approve, Datetime ], function (err, rows, fields) {
         if (err) {
             console.log(err);
