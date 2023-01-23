@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 // db를 사용
 var db = require('../config/db')
 
-//  멘토링 정보저장
+//  멘토링 정보저
 router.post('/save/Mentor', cors(), urlencodedParser, function (req, res) {
     const User = req.body.Userreq;
     const Name = req.body.Namereq;
