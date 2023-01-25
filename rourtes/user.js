@@ -180,9 +180,6 @@ router.post('/phone/certify',cors() , urlencodedParser  , function (req, res) {
    const Phone = req.body.nickname;
    const number = req.body.number;
    
-
-   
- 
         messageService.send({
             'to': Phone,
             'from': '010-6352-9496',
