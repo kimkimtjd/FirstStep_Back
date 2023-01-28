@@ -97,8 +97,8 @@ router.get('/filter/:first/:second/:third/:four/:five',cors() , urlencodedParser
             res.send(rows)  
         }
         else {
-
         
+            res.json({result: 'fail'})            
 
         }
     })});
