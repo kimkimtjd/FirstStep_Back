@@ -50,14 +50,17 @@ router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
     const info = req.params.id;
 
     db.mysql.query('SELECT * from Tutoring WHERE User = ?', [info], (error, rows, fields) => {
-        if (rows.length === 1) {
+        if (rows.length >= 1) {
+            // 승인대기
             if (rows[0].Approve === "N") {
                 res.json({result: 'Load'})            
             }
-            else{
-                res.json({result: 'success'})            
-            }            
+            // 승인이후
+            else if(rows[0].Approve === "Y"){
+                res.json(rows)            
+            }        
         }
+        // 미등록        
         else {
             res.json({result: 'fail'})            
         } 
