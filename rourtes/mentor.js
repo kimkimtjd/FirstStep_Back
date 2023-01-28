@@ -87,7 +87,7 @@ router.get('/filter/:first/:second/:third/:four/:five',cors() , urlencodedParser
     const four = req.params.four; //대학교 유형
     const five = req.params.five; //본인여부
 
-    db.mysql.query('SELECT * from Consulting WHERE (LOCATE(?, HighSchool) > 0 OR LOCATE(?, HighSchool) > 0 OR LOCATE(?, University) > 0 OR LOCATE(?, University) > 0 OR Approve = ?) AND NOT User = ? LIMIT 3 ', [first , third, second , four , "Y" , five], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting WHERE (LOCATE(?, HighSchool) > 0 OR LOCATE(?, HighSchool) > 0 OR LOCATE(?, University) > 0 OR LOCATE(?, University) > 0 OR Approve = ?) AND NOT User = ? ORDER BY Entertime DESC, rand() LIMIT 3 ', [first , third, second , four , "Y" , five], (error, rows, fields) => {
         // console.log(rows)
         if (rows.length >= 1) {
             // 2가지 조건 다 충족
