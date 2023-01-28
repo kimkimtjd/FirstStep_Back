@@ -50,17 +50,14 @@ router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
     const info = req.params.id;
 
     db.mysql.query('SELECT * from Consulting WHERE User = ?', [info], (error, rows, fields) => {
-        if (rows.length === 1) {
+        if (rows.length >= 1) {
             // 승인대기
             if (rows[0].Approve === "N") {
                 res.json({result: 'Load'})            
             }
             // 임시저장
-            else if(rows[0].Loading === "N"){
-                res.json({result: 'exist'})            
-            }
-            else{
-                res.json({result: 'success'})            
+            else if(rows[0].Approve === "Y"){
+                res.json(rows)            
             }
         }
         else {
@@ -75,7 +72,7 @@ router.get('/list/:id',cors() , urlencodedParser  , function (req, res) {
 
     const id = req.params.id; //유저정보
 
-    db.mysql.query('SELECT * from Consulting WHERE NOT User = ? ORDER BY rand() LIMIT 3 ', [id], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting WHERE NOT User = ? ORDER BY Entertime DESC, rand()  LIMIT 3', [id], (error, rows, fields) => {
         res.send(rows)
     });
 
