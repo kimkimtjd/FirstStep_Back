@@ -66,9 +66,11 @@ router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
 });
 
 // 클래스 메인 3개
-router.get('/list',cors() , urlencodedParser  , function (req, res) {
+router.get('/list/:id',cors() , urlencodedParser  , function (req, res) {
 
-    db.mysql.query('SELECT * from Tutoring ORDER BY rand() LIMIT 3 ',  (error, rows, fields) => {
+    const id = req.params.id; //유저정보
+
+    db.mysql.query('SELECT * from Tutoring WHERE NOT User = ? ORDER BY rand() LIMIT 3 ', [id], (error, rows, fields) => {
         res.send(rows)
     });
 
