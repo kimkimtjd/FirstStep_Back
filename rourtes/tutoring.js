@@ -78,32 +78,77 @@ router.get('/list/:id',cors() , urlencodedParser  , function (req, res) {
 
 
 // 필터링정보
-router.get('/filter/:first/:second',cors() , urlencodedParser  , function (req, res) {
+router.get('/filter/:first/:second/:third/:four',cors() , urlencodedParser  , function (req, res) {
     
-    const first = req.params.first; //고등학교
-    const second= req.params.second; //대학
+    const first = req.params.first; //고등학교 지역
+    const second= req.params.second; //대학교 이름
+    const third = req.params.third; //고등학교 유형
+    const four = req.params.four; //대학교 유형
 
-    db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [first , second , "Y"], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND LOCATE(?, HighSchool) > 0 AND LOCATE(?, University) > 0 AND LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [first , third, second , four , "Y"], (error, rows, fields) => {
         if (rows.length === 1) {
             // 2가지 조건 다 충족
             res.send(rows)  
         }
         else {
-            db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [second, "Y"], (error, rows, fields) => {
+            db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, University) > 0 AND LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [second,four, "Y"], (error, rows, fields) => {
                 if (rows.length === 1) {
-                    // 1가지 조건 충족 - 대학교
+                    // 2가지 조건 다충족 - 대학교
                     res.send(rows)  
                 }  
                 else{
-                    db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [first, "Y"], (error, rows, fields) => {
+                    db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [second, "Y"], (error, rows, fields) => {
                         if (rows.length === 1) {
-                            // 1가지 조건 충족 - 고등학교
+                            // 대학교 이름명
                             res.send(rows)  
-                        }   
-                        else{
-                            res.json({result: 'fail'})     
                         }
-                    })
+                        else{
+                            db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [four, "Y"], (error, rows, fields) => {
+                                if (rows.length === 1) {
+                                    // 대학교 학과
+                                    res.send(rows)  
+                                }
+                                else{
+                                    db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, HighSchool) > 0 AND LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [first,third, "Y"], (error, rows, fields) => {
+                                        if (rows.length === 1) {
+                                            // 2가지 조건 다충족 - 고등학교
+                                            res.send(rows)  
+                                        }  
+                                        else{
+                                            db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [first, "Y"], (error, rows, fields) => {
+                                                if (rows.length === 1) {
+                                                    // 고등학교 지역명
+                                                    res.send(rows)  
+                                                }
+                                                else{
+                                                    db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [third, "Y"], (error, rows, fields) => {
+                                                        if (rows.length === 1) {
+                                                            // 고등학교 지역명
+                                                            res.send(rows)  
+                                                        }
+                                                    else{
+                                                        res.json({result: 'fail'})     
+                                                    }
+                                                })
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })  
+        
+
+                    // db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [first, "Y"], (error, rows, fields) => {
+                    //     if (rows.length === 1) {
+                    //         // 1가지 조건 충족 - 고등학교
+                    //         res.send(rows)  
+                    //     }   
+                    //     else{
+                    //         res.json({result: 'fail'})     
+                    //     }
+                    // })
                 }
             })
         } 
