@@ -83,19 +83,19 @@ router.get('/filter/:first/:second',cors() , urlencodedParser  , function (req, 
     const first = req.params.first; //고등학교
     const second= req.params.second; //대학
 
-    db.mysql.query('SELECT * from Tutoring WHERE HighSchool = ? AND University = ? AND Approve = ? LIMIT 3', [first , second , "Y"], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [first , second , "Y"], (error, rows, fields) => {
         if (rows.length === 1) {
             // 2가지 조건 다 충족
             res.send(rows)  
         }
         else {
-            db.mysql.query('SELECT * from Tutoring WHERE University = ? AND Approve = ? LIMIT 3', [second, "Y"], (error, rows, fields) => {
+            db.mysql.query('SELECT * from Tutoring  WHERE LOCATE(?, University) > 0 AND Approve = ? LIMIT 3', [second, "Y"], (error, rows, fields) => {
                 if (rows.length === 1) {
                     // 1가지 조건 충족 - 대학교
                     res.send(rows)  
                 }  
                 else{
-                    db.mysql.query('SELECT * from Tutoring WHERE HighSchool = ? AND Approve = ? LIMIT 3', [first, "Y"], (error, rows, fields) => {
+                    db.mysql.query('SELECT * from Tutoring WHERE LOCATE(?, HighSchool) > 0 AND Approve = ? LIMIT 3', [first, "Y"], (error, rows, fields) => {
                         if (rows.length === 1) {
                             // 1가지 조건 충족 - 고등학교
                             res.send(rows)  
