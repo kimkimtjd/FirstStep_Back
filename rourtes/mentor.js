@@ -70,4 +70,39 @@ router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+// 필터링정보
+router.get('/filter/:first/:second',cors() , urlencodedParser  , function (req, res) {
+    
+    const first = req.params.first; //고등학교
+    const second= req.params.second; //대학
+
+    db.mysql.query('SELECT * from Consulting WHERE HighSchool = ? AND University = ? AND Approve = ?', [first , second , "Y"], (error, rows, fields) => {
+        if (rows.length === 1) {
+            // 2가지 조건 다 충족
+            res.send(rows)  
+        }
+        else {
+            db.mysql.query('SELECT * from Consulting WHERE University = ? AND Approve = ?', [second, "Y"], (error, rows, fields) => {
+                if (rows.length === 1) {
+                    // 1가지 조건 충족 - 대학교
+                    res.send(rows)  
+                }  
+                else{
+                    db.mysql.query('SELECT * from Consulting WHERE HighSchool = ? AND Approve = ?', [first, "Y"], (error, rows, fields) => {
+                        if (rows.length === 1) {
+                            // 1가지 조건 충족 - 고등학교
+                            res.send(rows)  
+                        }   
+                        else{
+                            res.json({result: 'fail'})     
+                        }
+                    })
+                }
+            })
+        } 
+
+    });
+
+});
+
 module.exports = router;
