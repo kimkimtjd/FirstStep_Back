@@ -26,6 +26,11 @@ app.use('/api/tutor', Tutoring);
 var Favorite = require('./rourtes/favorite')
 app.use('/api/favorite', Favorite);
 
+// 유저 회원가입이외 추가로 받는 데이터
+var User_add = require('./rourtes/user_add')
+app.use('/api/add/user', User_add);
+
+
 app.use( express.static( path.join(__dirname, 'build') ) );
 
 app.get('/', function(request, response){
