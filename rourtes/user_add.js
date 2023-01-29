@@ -24,7 +24,7 @@ router.post('/certify/pay',cors() , urlencodedParser  , function (req, res) {
              res.json({result: 'fail'})
         }
         else {
-            db.mysql.query("INSERT INTO User_add (User,pau) VALUES (?,?)", [email, Pay], function (err, rows, fields) {
+            db.mysql.query("INSERT INTO User_add (User,pay) VALUES (?,?)", [email, Pay], function (err, rows, fields) {
                 if (err) {
                     console.log(err);
                 } else {
