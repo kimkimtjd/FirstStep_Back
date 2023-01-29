@@ -41,7 +41,151 @@ app.get('/Login', function(request, response){
   response.sendFile( path.join(__dirname, 'build/index.html') )
 });
 
+app.get('/Message', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Alarm', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Choice', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Find/id', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Find/id/end', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Find/pw', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Find/pw/end', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
 app.get('/Login/Admin', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/ChoiceHigh', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/ChoiceUniversity', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+    
+app.get('/Favorite/ChoiceSecond', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/Change', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/Change/ChoiceHigh', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/Change/ChoiceUniversity', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Favorite/Change/end', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+    
+
+
+app.get('/PostProgram', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/class', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/class/Second', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/class/Third', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/class/ChoiceHigh', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/class/ChoiceUniversity', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+
+
+app.get('/PostProgram/tutor', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/tutor/Second', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/tutor/Third', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/tutor/ChoiceHigh', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/PostProgram/tutor/ChoiceUniversity', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+
+
+app.get('/Mypage', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/admin', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/admin/nickname', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/active', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/book', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+
+app.get('/Mypage/review', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/rock', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Mypage/pay', function(request, response){
   response.sendFile( path.join(__dirname, 'build/index.html') )
 });
 
