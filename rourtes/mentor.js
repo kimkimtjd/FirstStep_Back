@@ -8,7 +8,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
- 
+
 // db를 사용
 var db = require('../config/db')
 
@@ -33,43 +33,53 @@ router.post('/save/Mentor', cors(), urlencodedParser, function (req, res) {
     const Datetime = req.body.Datetimereq;
 
 
-    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress ,  Avalable , Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
-    [User , Name , Birth , Highschool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress , Avalable , Time , Value , Approve , Datetime ], function (err, rows, fields) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json({ result: 'success' })
-        }
-    });
+    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress ,  Avalable , Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        [User, Name, Birth, Highschool, University, Category, Grade, Advantage, ProgramName, Subjects, Recommend, Progress, Avalable, Time, Value, Approve, Datetime], function (err, rows, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ result: 'success' })
+            }
+        });
 
 });
 
 
 // 내 멘토링 정보
-router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
+router.get('/info/:id', cors(), urlencodedParser, function (req, res) {
     const info = req.params.id;
 
     db.mysql.query('SELECT * from Consulting WHERE User = ? ORDER BY Entertime DESC', [info], (error, rows, fields) => {
         if (rows.length >= 1) {
             // 승인대기
             if (rows[0].Approve === "N") {
-                res.json({result: 'Load'})            
+                res.json({ result: 'Load' })
             }
             // 승인이후
-            else if(rows[0].Approve === "Y"){
-                res.json(rows)            
+            else if (rows[0].Approve === "Y") {
+                res.json(rows)
             }
         }
         // 미등록                
         else {
-            res.json({result: 'fail'})            
-        } 
+            res.json({ result: 'fail' })
+        }
     });
 
 });
 
+// 멘토링 상세보기
+router.get('/detail/:id', cors(), urlencodedParser, function (req, res) {
+    const info = req.params.id;
+
+    db.mysql.query('SELECT * from Consulting WHERE id = ?', [info], (error, rows, fields) => {
+        res.json(rows)
+    });
+});
+
+
 // 컨설팅 메인 3개
-router.get('/list/:id',cors() , urlencodedParser  , function (req, res) {
+router.get('/list/:id', cors(), urlencodedParser, function (req, res) {
 
     const id = req.params.id; //유저정보
 
@@ -80,25 +90,26 @@ router.get('/list/:id',cors() , urlencodedParser  , function (req, res) {
 });
 
 // 필터링정보
-router.get('/filter/:first/:second/:third/:four/:five',cors() , urlencodedParser  , function (req, res) {
-    
+router.get('/filter/:first/:second/:third/:four/:five', cors(), urlencodedParser, function (req, res) {
+
     const first = req.params.first; //고등학교 지역
-    const second= req.params.second; //대학교 이름
+    const second = req.params.second; //대학교 이름
     const third = req.params.third; //고등학교 유형
     const four = req.params.four; //대학교 유형
     const five = req.params.five; //본인여부
 
-    db.mysql.query('SELECT * from Consulting WHERE (LOCATE(?, HighSchool) > 0 OR LOCATE(?, HighSchool) > 0 OR LOCATE(?, University) > 0 OR LOCATE(?, University) > 0 OR Approve = ?) AND NOT User = ? ORDER BY Entertime DESC, rand() LIMIT 3 ', [first , third, second , four , "Y" , five], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting WHERE (LOCATE(?, HighSchool) > 0 OR LOCATE(?, HighSchool) > 0 OR LOCATE(?, University) > 0 OR LOCATE(?, University) > 0 OR Approve = ?) AND NOT User = ? ORDER BY Entertime DESC, rand() LIMIT 3 ', [first, third, second, four, "Y", five], (error, rows, fields) => {
         // console.log(rows)
         if (rows.length >= 1) {
             // 2가지 조건 다 충족
-            res.send(rows)  
+            res.send(rows)
         }
         else {
-        
-            res.json({result: 'fail'})            
+
+            res.json({ result: 'fail' })
 
         }
-    })});
+    })
+});
 
 module.exports = router;

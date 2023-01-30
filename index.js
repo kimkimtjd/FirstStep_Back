@@ -30,6 +30,11 @@ app.use('/api/favorite', Favorite);
 var User_add = require('./rourtes/user_add')
 app.use('/api/add/user', User_add);
 
+// 멘토 신청시 받는 정보
+var Class_add = require('./rourtes/mentor_process')
+app.use('/api/add/class', Class_add);
+
+
 
 app.use( express.static( path.join(__dirname, 'build') ) );
 
