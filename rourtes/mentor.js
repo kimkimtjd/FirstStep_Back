@@ -21,7 +21,6 @@ router.post('/save/Mentor', cors(), urlencodedParser, function (req, res) {
     const University = req.body.Universityreq;
     const Category = req.body.Categoryreq;
     const Grade = req.body.Gradereq;
-    // const Special = req.body.Specialreq; // 필살기
     const Advantage = req.body.Advantagereq;
     const ProgramName = req.body.ProgramNamereq;
     const Subjects = req.body.Subjectsreq;
@@ -34,7 +33,7 @@ router.post('/save/Mentor', cors(), urlencodedParser, function (req, res) {
     const Datetime = req.body.Datetimereq;
 
 
-    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage  ,  ProgramName , Subjects , Recommend , Progress ,  Avalable , Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    db.mysql.query("INSERT INTO Consulting (User , Name , Birth , HighSchool , University , Category , Grade , Advantage , ProgramName , Subjects , Recommend , Progress ,  Avalable , Time , Value  , Approve , Entertime ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         [User, Name, Birth, Highschool, University, Category, Grade, Advantage, ProgramName, Subjects, Recommend, Progress, Avalable, Time, Value, Approve, Datetime], function (err, rows, fields) {
             if (err) {
                 console.log(err);
