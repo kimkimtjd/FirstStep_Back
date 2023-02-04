@@ -23,7 +23,7 @@ router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res)
 
     db.mysql.query("INSERT INTO Consulting_Process ( mentor_id , mentIr_id , Pay , Category , Pay_yn , Review , Entertime ) VALUES (?,?,?,?,?,?,?)",
         //  
-        [mentor, mentir, pay, category, "N", "" , time], function (err, rows, fields) {
+        [mentor, mentir, pay, category, "N", "" , Entertime], function (err, rows, fields) {
             if (err) {
                 console.log(err);
             } else {
@@ -84,16 +84,15 @@ router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req
 
 });
 
-// 내가 신청한 멘토 정보 , 시간 등등
+// 내가 신청한 멘토 정보 , 시간 등등 - 추가가능
 router.get('/time/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id; //이용자 정보
 
     // const review = req.body.review;
 
-    db.mysql.query('SELECT * from Consulting_Process WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ?', [phone], (error, rows, fields) => {
         if (rows.length >= 1) {
-            
-            res.send(rows[0].Entertime) // 내 멘티 리스트 출력
+            res.send(rows) // 내 멘티 리스트 출력
         }
         else {
             res.json({ result: 'fail' })
