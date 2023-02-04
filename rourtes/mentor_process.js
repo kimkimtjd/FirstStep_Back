@@ -14,13 +14,14 @@ var db = require('../config/db')
 
 //  클래스 , 컨설팅 신청정보 저장
 router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res) {
-    const mentor = req.body.mentor;
-    const mentir = req.body.mentir;
-    const pay = req.body.pay;
-    const category = req.body.category;
+    const mentor = req.body.mentor;// 멘토계정
+    const mentir = req.body.mentir;// 멘티계정
+    const pay = req.body.pay;// 금액 및 계좌번호
+    const category = req.body.category; // 컨설팅 클래스 종류
     // const review = req.body.review;
 
     db.mysql.query("INSERT INTO Consulting_Process ( mentor_id , mentIr_id , Pay , Category , Pay_yn , Review ) VALUES (?,?,?,?,?,?)",
+        //  
         [mentor, mentir, pay, category, "N", ""], function (err, rows, fields) {
             if (err) {
                 console.log(err);
@@ -55,7 +56,22 @@ router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res)
 
 });
 
+// 내 멘티 정보확인
+router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id; //이용자 정보
 
+    // const review = req.body.review;
+
+    db.mysql.query('SELECT * from Consulting_Process WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
+        if (rows.length >= 1) {
+            res.send(rows) // 내 멘티 리스트 출력
+        }
+        else {
+            res.json({ result: 'fail' })
+        }
+    });
+
+});
 
 
 // 북마크 리스트 출력
