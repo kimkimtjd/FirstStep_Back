@@ -65,18 +65,18 @@ router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req
 
     db.mysql.query('SELECT * from Consulting_Process WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
         if (rows.length >= 1) {
-            for(var i = 0; i < rows.length; i++){
-            db.mysql.query('SELECT * from Consulting WHERE User = ? AND ProgramName = ?', [rows[i].mentor_id.split(",")[0] , rows[i].mentor_id.split(",")[1]] ,(error, rows, fields) => {
-                if (rows.length >= 1) {
-                    res.send(rows)
-                }
-            })
-        }
+            res.send(rows)
+            // for(var i = 0; i < rows.length; i++){
+            // db.mysql.query('SELECT * from Consulting WHERE User = ? AND ProgramName = ?', [rows[i].mentor_id.split(",")[0] , rows[i].mentor_id.split(",")[1]] ,(error, rows, fields) => {
+            //     if (rows.length >= 1) {
+            //         res.send(rows)
+            //     }
+            // }
+            }
             // console.log(rows.length)
             // res.send(rows.length)
 
             // res.send(rows) // 내 멘티 리스트 출력
-        }
         else {
             res.json({ result: 'fail' })
         }
