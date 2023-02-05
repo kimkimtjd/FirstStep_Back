@@ -37,13 +37,12 @@ router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res)
 router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id; //이용자 정보
   
-
     db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE mentir_id = ? ', [phone], (error, rows, fields) => {
             res.send(rows)
         });        
 });
 
-//  클래스 , 컨설팅 북마크 - 
+//  클래스 , 컨설팅 북마크 -  
 router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, res) {
     const mentor = req.body.mentor;
     const mentir = req.body.mentir;
@@ -67,8 +66,7 @@ router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, 
 
 });
 
-
-// 북마크 리스트 출력
+// 북마크 리스트 출력 [리스트만 출력]
 router.get('/bookmark/lsit/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
 
@@ -80,6 +78,15 @@ router.get('/bookmark/lsit/:id', cors(), urlencodedParser, function (req, res) {
             res.json({ result: 'fail' })
         }
     });
+});
+
+// 내가 신청한 컨설팅 정보 [마이페이지 - 북마크]
+router.get('/certify/bookmark/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id; //이용자 정보
+  
+    db.mysql.query('SELECT * FROM Bookmark LEFT JOIN Consulting on Bookmark.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) WHERE Bookmark.mentir_id = ? ', [phone], (error, rows, fields) => {
+            res.send(rows)
+        });        
 });
 
 
