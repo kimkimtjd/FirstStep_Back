@@ -68,11 +68,8 @@ router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, 
 });
 
 
-
-
-
 // 북마크 리스트 출력
-router.get('/review/class/:id', cors(), urlencodedParser, function (req, res) {
+router.get('/bookmark/lsit/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
 
     db.mysql.query('SELECT * from Bookmark WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
