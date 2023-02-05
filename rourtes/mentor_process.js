@@ -38,7 +38,7 @@ router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req
     const phone = req.params.id; //이용자 정보
   
 
-    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) WHERE mentir_id = ? ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE mentir_id = ? ', [phone], (error, rows, fields) => {
             res.send(rows)
         });        
 });
