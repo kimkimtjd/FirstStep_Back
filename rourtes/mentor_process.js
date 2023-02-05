@@ -33,6 +33,16 @@ router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res)
 
 });
 
+// 내가 신청한 컨설팅 정보 [마이페이지 - 내 멘티정보]
+router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id; //이용자 정보
+  
+
+    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) WHERE mentir_id = ? ', [phone], (error, rows, fields) => {
+            res.send(rows)
+        });        
+});
+
 //  클래스 , 컨설팅 북마크 - 
 router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res) {
     const mentor = req.body.mentor;
@@ -57,49 +67,9 @@ router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res)
 
 });
 
-// 내가 신청한 컨설팅 정보
-router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
-    const phone = req.params.id; //이용자 정보
 
-    // const review = req.body.review;
 
-    db.mysql.query('SELECT * from Consulting_Process WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
-        if (rows.length >= 1) {
-            res.send(rows)
-            // for(var i = 0; i < rows.length; i++){
-            // db.mysql.query('SELECT * from Consulting WHERE User = ? AND ProgramName = ?', [rows[i].mentor_id.split(",")[0] , rows[i].mentor_id.split(",")[1]] ,(error, rows, fields) => {
-            //     if (rows.length >= 1) {
-            //         res.send(rows)
-            //     }
-            // }
-            }
-            // console.log(rows.length)
-            // res.send(rows.length)
 
-            // res.send(rows) // 내 멘티 리스트 출력
-        else {
-            res.json({ result: 'fail' })
-        }
-    });
-
-});
-
-// 내가 신청한 멘토 정보 , 시간 등등 - 추가가능
-router.get('/time/MentorProgram/:id', cors(), urlencodedParser, function (req, res) {
-    const phone = req.params.id; //이용자 정보
-
-    // const review = req.body.review;
-
-    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ?', [phone], (error, rows, fields) => {
-        if (rows.length >= 1) {
-            res.send(rows) // 내 멘티 리스트 출력
-        }
-        else {
-            res.json({ result: 'fail' })
-        }
-    });
-
-});
 
 // 북마크 리스트 출력
 router.get('/review/class/:id', cors(), urlencodedParser, function (req, res) {
