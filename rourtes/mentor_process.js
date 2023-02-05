@@ -44,7 +44,7 @@ router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req
 });
 
 //  클래스 , 컨설팅 북마크 - 
-router.post('/save/MentorProcess', cors(), urlencodedParser, function (req, res) {
+router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, res) {
     const mentor = req.body.mentor;
     const mentir = req.body.mentir;
     // const pay = req.body.pay;
