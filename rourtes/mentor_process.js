@@ -84,7 +84,7 @@ router.get('/bookmark/lsit/:id', cors(), urlencodedParser, function (req, res) {
 router.get('/certify/bookmark/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id; //이용자 정보
   
-    db.mysql.query('SELECT * FROM Bookmark LEFT JOIN Consulting on Bookmark.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) WHERE Bookmark.mentir_id = ? ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * FROM Bookmark LEFT JOIN Consulting on Bookmark.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE Bookmark.mentir_id = ? ', [phone], (error, rows, fields) => {
             res.send(rows)
         });        
 });
