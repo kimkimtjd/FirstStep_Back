@@ -42,6 +42,16 @@ router.get('/certify/MentorProgram/:id', cors(), urlencodedParser, function (req
         });        
 });
 
+// 내가 신청한 컨설팅 정보 [하단 - 알람 , 메세지]
+router.get('/certify/alarm/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id; //이용자 정보
+  
+    db.mysql.query('SELECT * FROM Consulting INNER JOIN Consulting_Process on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE mentir_id = ? ', [phone], (error, rows, fields) => {
+            res.send(rows)
+        });        
+});
+
+
 //  클래스 , 컨설팅 북마크 -  
 router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, res) {
     const mentor = req.body.mentor;
