@@ -35,7 +35,7 @@ var Class_add = require('./rourtes/mentor_process')
 app.use('/api/add/class', Class_add);
 
 // 채팅
-var Chat = require('./rourtes/Chat')
+var Chat = require('./rourtes/chat')
 app.use('/api/Chat', Chat);
 
 // 멘토 신청 및 입금완료후 채팅진행
