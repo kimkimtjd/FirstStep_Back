@@ -34,6 +34,11 @@ app.use('/api/add/user', User_add);
 var Class_add = require('./rourtes/mentor_process')
 app.use('/api/add/class', Class_add);
 
+// 채팅
+var Chat = require('./rourtes/Chat')
+app.use('/api/Chat', Chat);
+
+// 멘토 신청 및 입금완료후 채팅진행
 
 
 app.use( express.static( path.join(__dirname, 'build') ) );
