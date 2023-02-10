@@ -130,6 +130,21 @@ router.get('/Emailname/:id',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+// 이메일 찾기 - 닉네임으로
+router.get('/Nickname/:id',cors() , urlencodedParser  , function (req, res) {
+    const phone = req.params.id;
+
+    db.mysql.query('SELECT * from User WHERE Nickname = ?', [phone], (error, rows, fields) => {
+        if (rows.length === 1) {
+             res.json({user: rows[0].Nickname})
+        }
+        else {
+            res.json({result: 'fail'})            
+        } 
+    });
+
+});
+
 // 비밀번호 변격ㅇ
 router.post('/ChangePW',cors() , urlencodedParser  , function (req, res) {
     const Phone = req.body.Phone;
