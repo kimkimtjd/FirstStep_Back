@@ -137,7 +137,7 @@ router.get('/Nickname/:id',cors() , urlencodedParser  , function (req, res) {
 
     db.mysql.query('SELECT * from User WHERE Nickname = ?', [rgiojwsg], (error, rows, fields) => {
         if (rows.length === 1) {
-             res.json({user: rows[0].Nickname})
+             res.json({user: rows[0].email})
         }
         else {
             res.json({result: 'fail'})            
