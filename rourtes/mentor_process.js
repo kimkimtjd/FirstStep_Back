@@ -104,7 +104,7 @@ router.get('/certify/bookmark/:id', cors(), urlencodedParser, function (req, res
 router.get('/certify/MentorProgram/Mentor/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id; //이용자 정보
   
-    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE LOCATE( ? , mentor_id) > 0 ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting_Process.mentir_id WHERE LOCATE( ? , mentor_id) > 0 ', [phone], (error, rows, fields) => {
             res.send(rows)
         });        
 });
