@@ -100,6 +100,16 @@ router.get('/certify/bookmark/:id', cors(), urlencodedParser, function (req, res
 });
 
 
+// 내가 신청한 컨설팅 정보 [마이페이지 - 내 멘토정보]
+router.get('/certify/MentorProgram/Mentor/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id; //이용자 정보
+  
+    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Consulting on Consulting_Process.mentor_id = Concat(Consulting.User, "," , Consulting.ProgramName) INNER JOIN User on User.email =  Consulting.User WHERE LOCATE( ? , mentor_id) > 0 ', [phone], (error, rows, fields) => {
+            res.send(rows)
+        });        
+});
+
+
 // 내 멘티 후기 출력 - 클래스
 router.get('/review/class/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
