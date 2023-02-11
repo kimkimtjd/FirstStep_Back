@@ -73,9 +73,9 @@ router.get('/find/:id/:menti', cors(), urlencodedParser, function (req, res) {
     const info = req.params.id;
     const menti = req.params.menti;
 
-    db.mysql.query('SELECT * from Consulting WHERE LOCATE( ? , mentor_id) > 0 AND mentIr_id = ?', [info , menti], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting_Process WHERE LOCATE( ? , mentor_id) > 0 AND mentIr_id = ?', [info , menti], (error, rows, fields) => {
         if (rows.length === 1) {
-             res.json({user: rows[0].email})
+             res.json({user: rows[0].mentor_id})
         }
         else {
             res.json({result: 'fail'})            
