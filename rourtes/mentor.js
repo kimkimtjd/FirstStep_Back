@@ -68,6 +68,22 @@ router.get('/info/:id', cors(), urlencodedParser, function (req, res) {
 
 });
 
+// 내 멘토링 정보
+router.get('/find/:id/:menti', cors(), urlencodedParser, function (req, res) {
+    const info = req.params.id;
+    const menti = req.params.menti;
+
+    db.mysql.query('SELECT * from Consulting WHERE LOCATE( ? , mentor_id) > 0 AND mentIr_id = ?', [info , menti], (error, rows, fields) => {
+        if (rows.length === 1) {
+             res.json({user: rows[0].email})
+        }
+        else {
+            res.json({result: 'fail'})            
+        } 
+    });
+
+});
+
 // 멘토링 상세보기
 router.get('/detail/:id', cors(), urlencodedParser, function (req, res) {
     const info = req.params.id;
@@ -83,7 +99,7 @@ router.get('/list/:id', cors(), urlencodedParser, function (req, res) {
 
     const id = req.params.id; //유저정보
 
-    db.mysql.query('SELECT * from Consulting WHERE NOT User = ? ORDER BY Entertime DESC, rand()  LIMIT 3', [id], (error, rows, fields) => {
+    db.mysql.qsery('SELECT * from Consulting WHERE NOT User = ? ORDER BY Entertime DESC, rand()  LIMIT 3', [id], (error, rows, fields) => {
         res.send(rows)
     });
 
