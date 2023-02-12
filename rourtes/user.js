@@ -130,6 +130,21 @@ router.get('/Emailname/:id',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+// 유저정보
+router.get('/user/detail/:id',cors() , urlencodedParser  , function (req, res) {
+    const phone = req.params.id;
+
+    db.mysql.query('SELECT * from User WHERE email = ?', [phone], (error, rows, fields) => {
+        if (rows.length === 1) {
+             res.json(rows)
+        }
+        else {
+            res.json({result: 'fail'})            
+        } 
+    });
+
+});
+
 // 이메일 찾기 - 닉네임으로
 router.get('/Nickname/:id',cors() , urlencodedParser  , function (req, res) {
     const phone = req.params.id;
