@@ -20,14 +20,14 @@ router.post('/admin',cors() , urlencodedParser  , function (req, res) {
     const pw = req.body.NamePost;
     const Phone = req.body.PhonePost;
     const Nickname = req.body.NicknamePost;
-
+    const profile_logo = req.body.profile_logo;
 
     db.mysql.query('SELECT * from User WHERE email = ?', [email], (error, rows, fields) => {
         if (rows.length === 1) {
              res.json({result: 'fail'})
         }
         else {
-            db.mysql.query("INSERT INTO User (email,pw,Phone,Nickname) VALUES (?,?,?,?)", [email, pw, Phone, Nickname ], function (err, rows, fields) {
+            db.mysql.query("INSERT INTO User (email,pw,Phone,Nickname , profile_logo) VALUES (?,?,?,?,?)", [email, pw, Phone, Nickname , profile_logo], function (err, rows, fields) {
                 if (err) {
                     console.log(err);
                 } else {
