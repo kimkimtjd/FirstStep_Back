@@ -39,6 +39,8 @@ router.post('/admin',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+
+
 // 이메일 중복확인
 router.post('/emailcheck',cors() , urlencodedParser  , function (req, res) {
     const email = req.body.EmailPost;
@@ -126,6 +128,22 @@ router.get('/Emailname/:id',cors() , urlencodedParser  , function (req, res) {
         else {
             res.json({result: 'fail'})            
         } 
+    });
+
+});
+
+// 유저정보
+router.get('/list',cors() , urlencodedParser  , function (req, res) {
+    // const phone = req.params.id;
+
+    db.mysql.query('SELECT * from User ', [], (error, rows, fields) => {
+        res.json(rows)
+        // if (rows.length === 1) {
+        //      res.json(rows)
+        // }
+        // else {
+        //     res.json({result: 'fail'})            
+        // } 
     });
 
 });
