@@ -68,7 +68,7 @@ router.get('/info/:id', cors(), urlencodedParser, function (req, res) {
 
 });
 
-// 내 멘토링 정보
+// 내가 신청한 멘토 정보
 router.get('/find/:id/:menti', cors(), urlencodedParser, function (req, res) {
     const info = req.params.id;
     const menti = req.params.menti;
