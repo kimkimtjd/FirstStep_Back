@@ -113,4 +113,13 @@ router.get('/filter/:first/:second/:third/:four/:five', cors(), urlencodedParser
     })
 });
 
+// 클래스 상세보기
+router.get('/detail/:id', cors(), urlencodedParser, function (req, res) {
+    const info = req.params.id;
+
+    db.mysql.query('SELECT * from Tutoring WHERE id = ?', [info], (error, rows, fields) => {
+        res.json(rows)
+    });
+});
+
 module.exports = router;
