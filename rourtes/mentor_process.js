@@ -122,7 +122,7 @@ router.get('/certify/MentorProgram/Mentor/:id', cors(), urlencodedParser, functi
 router.get('/certify/ClassProgram/Mentor/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id; //이용자 정보
   
-    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Tutoring on Consulting_Process.mentor_id = Concat(Tutoring.User, "," , Tutoring.ProgramName) INNER JOIN User on User.email =  Consulting_Process.mentir_id WHERE LOCATE( ? , mentor_id) > 0 AND Tutoring.Category = "클래스" ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * FROM Consulting_Process INNER JOIN Tutoring on Consulting_Process.mentor_id = Concat(Tutoring.User, "," , Tutoring.ProgramName) INNER JOIN User on User.email =  Consulting_Process.mentir_id WHERE LOCATE( ? , mentor_id) > 0 AND Consulting_Process.Category = "클래스" ', [phone], (error, rows, fields) => {
             res.send(rows)
         });        
 });
