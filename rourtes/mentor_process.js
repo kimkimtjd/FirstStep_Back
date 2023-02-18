@@ -89,13 +89,13 @@ router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, 
 router.get('/bookmark/lsit/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
 
-    db.mysql.query('SELECT * from Bookmark WHERE mentIr_id = ?', [phone], (error, rows, fields) => {
-        if (rows.length >= 1) {
+    db.mysql.query('SELECT * from Bookmark WHERE mentir_id = ?', [phone], (error, rows, fields) => {
+        // if (rows.length >= 1) {
             res.send(rows)
-        }
-        else {
-            res.json({ result: 'fail' })
-        }
+        // }
+        // else {
+        //     res.json({ result: 'fail' })
+        // }
     });
 });
 
