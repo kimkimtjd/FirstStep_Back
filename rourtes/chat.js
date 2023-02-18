@@ -67,6 +67,26 @@ router.post('/schedule', cors(), urlencodedParser, function (req, res) {
 
 });
 
+//  일정잡기 - 클래스
+router.post('/schedule/Class', cors(), urlencodedParser, function (req, res) {
+    const menti = req.body.id;
+    const mento = req.body.mento;
+    const schedule = req.body.schedule;
+    // const timeset = req.body.timeset;
+
+    db.mysql.query("UPDATE Consulting_Process SET schedule = ?  WHERE mentIr_id = ? AND LOCATE( ? , mentor_id) > 0 AND schedule = '' AND Category = ? " ,
+    [schedule, menti , mento , "클래스"]  , function (err, result) {
+       
+        // res.json(rows)            
+
+        if (err) throw err;
+        
+        res.json({result: 'success'})            
+    
+      });
+
+});
+
 // 후기기록
 router.post('/Review', cors(), urlencodedParser, function (req, res) {
     const menti = req.body.id;
