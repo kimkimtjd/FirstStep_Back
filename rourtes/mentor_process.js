@@ -127,6 +127,38 @@ router.get('/certify/ClassProgram/Mentor/:id', cors(), urlencodedParser, functio
         });        
 });
 
+
+
+//멘티 상세페이지에서 출력할 후기 - 컨설팅
+router.get('/review/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id;
+
+    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ? AND Category = "컨설팅" ', [phone], (error, rows, fields) => {
+        if (rows.length >= 1) {
+            res.send(rows)
+        }
+        else {
+            res.json({ result: 'fail' })
+        }
+    });
+
+});
+
+//멘티 상세페이지에서 출력할 후기 - 클래스
+router.get('/review_class/:id', cors(), urlencodedParser, function (req, res) {
+    const phone = req.params.id;
+
+    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ? AND Category = "클래스" ', [phone], (error, rows, fields) => {
+        if (rows.length >= 1) {
+            res.send(rows)
+        }
+        else {
+            res.json({ result: 'fail' })
+        }
+    });
+
+});
+
 // 내 멘티 후기 출력 - 클래스
 router.get('/review/class/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
@@ -186,5 +218,43 @@ router.get('/review_mentor/consulting/:id', cors(), urlencodedParser, function (
     });
 
 });
+
+// 컨설팅  후기작성
+router.post('/save/review', cors(), urlencodedParser, function (req, res) {
+    const mentor = req.body.mentor;// 프로그램 이름
+    const mentir = req.body.mentir;// 멘티계정
+    const review = req.body.review;// 리뷰
+   
+
+    db.mysql.query("UPDATE Consulting_Process SET Review = ? WHERE mentIr_id = ? AND mentor_id = ? AND Category = ? ",
+        [review , mentir, mentor , "컨설팅" ], function (err, rows, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ result: 'success' })
+            }
+        });
+
+});
+
+
+// 컨설팅  후기작성
+router.post('/save/review/Class', cors(), urlencodedParser, function (req, res) {
+    const mentor = req.body.mentor;// 프로그램 이름
+    const mentir = req.body.mentir;// 멘티계정
+    const review = req.body.review;// 리뷰
+   
+
+    db.mysql.query("UPDATE Consulting_Process SET Review = ? WHERE mentIr_id = ? AND mentor_id = ? AND Category = ? ",
+        [review , mentir, mentor , "클래스" ], function (err, rows, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ result: 'success' })
+            }
+        });
+
+});
+
 
 module.exports = router;
