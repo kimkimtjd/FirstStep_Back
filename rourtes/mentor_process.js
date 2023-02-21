@@ -229,16 +229,16 @@ router.post('/save/review', cors(), urlencodedParser, function (req, res) {
     db.mysql.query("UPDATE Consulting_Process SET Review = ? WHERE mentIr_id = ? AND mentor_id = ? AND Category = ? ",
         [review , mentir, mentor , "컨설팅" ], function (err, rows, fields) {
             if (err) {
-                console.log(err);
-            } else {
                 res.json({ result: 'success' })
+            } else {
+                console.log(err);
             }
         });
 
 });
 
 
-// 컨설팅  후기작성
+// 클래스 후기작성
 router.post('/save/review/Class', cors(), urlencodedParser, function (req, res) {
     const mentor = req.body.mentor;// 프로그램 이름
     const mentir = req.body.mentir;// 멘티계정
