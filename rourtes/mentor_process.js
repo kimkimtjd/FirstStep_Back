@@ -193,7 +193,7 @@ router.get('/review/consulting/:id', cors(), urlencodedParser, function (req, re
 router.get('/review_mentor/class/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
 
-    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ? AND Category = "클래스" GROUP BY mentor_id ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting_Process WHERE  LOCATE( ? , mentor_id) > 0 AND Category = "클래스" GROUP BY mentor_id ', [phone], (error, rows, fields) => {
         if (rows.length >= 1) {
             res.send(rows)
         }
@@ -208,7 +208,7 @@ router.get('/review_mentor/class/:id', cors(), urlencodedParser, function (req, 
 router.get('/review_mentor/consulting/:id', cors(), urlencodedParser, function (req, res) {
     const phone = req.params.id;
 
-    db.mysql.query('SELECT * from Consulting_Process WHERE mentor_id = ? AND Category = "컨설팅" GROUP BY mentor_id ', [phone], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting_Process WHERE  LOCATE( ? , mentor_id) > 0 AND Category = "컨설팅" GROUP BY mentor_id ', [phone], (error, rows, fields) => {
         if (rows.length >= 1) {
             res.send(rows)
         }
