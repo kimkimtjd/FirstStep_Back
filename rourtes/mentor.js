@@ -99,7 +99,16 @@ router.get('/list/:id', cors(), urlencodedParser, function (req, res) {
 
     const id = req.params.id; //유저정보
 
-    db.mysql.qsery('SELECT * from Consulting WHERE NOT User = ? ORDER BY Entertime DESC, rand()  LIMIT 3', [id], (error, rows, fields) => {
+    db.mysql.query('SELECT * from Consulting WHERE NOT User = ? ORDER BY Entertime DESC, rand()  LIMIT 3', [id], (error, rows, fields) => {
+        res.send(rows)
+    });
+
+});
+
+// 컨설팅 전체보기
+router.get('/total', cors(), urlencodedParser, function (req, res) {
+ 
+    db.mysql.query('SELECT * from Consulting',  [], (error, rows, fields) => {
         res.send(rows)
     });
 

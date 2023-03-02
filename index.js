@@ -199,7 +199,11 @@ app.get('/Mypage/pay', function(request, response){
   response.sendFile( path.join(__dirname, 'build/index.html') )
 });
 
-app.get('/query:id', function(request, response){
+app.get('/Search/:id', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
+
+app.get('/Search', function(request, response){
   response.sendFile( path.join(__dirname, 'build/index.html') )
 });
 
