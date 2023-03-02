@@ -68,6 +68,14 @@ router.get('/info/:id',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+// 클래스 전체보기
+router.get('/total', cors(), urlencodedParser, function (req, res) {
+ 
+    db.mysql.query('SELECT * from Tutoring',  [], (error, rows, fields) => {
+        res.send(rows)
+    });
+
+});
 
 // 클래스 상세보기
 router.get('/detail/:id', cors(), urlencodedParser, function (req, res) {
