@@ -199,6 +199,9 @@ app.get('/Mypage/pay', function(request, response){
   response.sendFile( path.join(__dirname, 'build/index.html') )
 });
 
+app.get('/query:id', function(request, response){
+  response.sendFile( path.join(__dirname, 'build/index.html') )
+});
 
 
 app.listen(8000); // 80 => 3000번 포트로!
