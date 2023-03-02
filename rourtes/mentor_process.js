@@ -282,6 +282,36 @@ router.get('/result/:searching', cors(), urlencodedParser, function (req, res) {
             }
         });
 
+
+});
+
+// 컨설팅 검색기록
+router.get('/result/Class/:searching', cors(), urlencodedParser, function (req, res) {
+    const searching = req.params.searching;// 검색어
+   
+    // 제목 1차검증
+    db.mysql.query("SELECT * From Tutoring WHERE LOCATE( ? , ProgramName) > 0 ",
+        [searching], function (err, rows, fields) {
+            if( rows.length > 0){
+                res.send(rows)  
+            }
+            else{
+                // 제목 2차검증
+                db.mysql.query("SELECT * From Tutoring WHERE LOCATE( ? , University) > 0 ",
+                [searching], function (err, rows, fields) {
+                    if( rows.length > 0){
+                        res.send(rows)  
+                    }
+                    else{
+                        res.json({result: 'fail'})            
+
+                    }
+                });
+        
+            }
+        });
+
+        
 });
 
 module.exports = router;
