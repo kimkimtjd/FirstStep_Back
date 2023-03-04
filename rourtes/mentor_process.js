@@ -70,7 +70,7 @@ router.post('/bookmark/MentorProcess', cors(), urlencodedParser, function (req, 
     // const review = req.body.review;
     // INSERT INTO Bookmark ( mentor_id , mentIr_id , category  ) VALUES (?,?,?)",
     db.mysql.query("SELECT * from Bookmark WHERE mentor_id = ? AND mentir_id =? AND category = ?", [mentor, mentir, category], function (err, rows, fields) {
-        if (rows.length === 1) {
+        if (rows.length >= 1) {
             db.mysql.query("DELETE FROM Bookmark WHERE mentor_id = ? AND mentir_id =? AND category = ?", [mentor, mentir, category], function (err, result) {
                 res.json({ result: 'delete' })
             })
