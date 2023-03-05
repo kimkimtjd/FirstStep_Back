@@ -36,6 +36,20 @@ router.post('/certify/pay',cors() , urlencodedParser  , function (req, res) {
 
 });
 
+// post - 정산 계좌 변경 
+router.post('/certify/pay/change',cors() , urlencodedParser  , function (req, res) {
+    const email = req.body.EmailPost;
+    const Pay = req.body.PayPost;
+
+    db.mysql.query("UPDATE User_add SET pay = ? WHERE = ?", [Pay, email], function (err, rows, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({result: 'success'})
+        }
+    });
+
+});
 
 
 // 결제수단 연결여부 검증
