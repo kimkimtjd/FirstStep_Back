@@ -41,7 +41,7 @@ router.post('/certify/pay/change',cors() , urlencodedParser  , function (req, re
     const email = req.body.EmailPost;
     const Pay = req.body.PayPost;
 
-    db.mysql.query("UPDATE User_add SET pay = ? WHERE = ?", [Pay, email], function (err, rows, fields) {
+    db.mysql.query("UPDATE User_add SET pay = ? WHERE User =  ?", [Pay, email], function (err, rows, fields) {
         if (err) {
             console.log(err);
         } else {
